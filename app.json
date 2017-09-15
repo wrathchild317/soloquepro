@@ -1,0 +1,8 @@
+{
+  "expo": {
+    "sdkVersion": "20.0.0",
+ 	"orientation": "portrait",
+ 	"name" : "SoloQuePro",
+ 	"slug" : "soloquepro"
+  }
+}
