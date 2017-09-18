@@ -4,49 +4,82 @@ import configs from './configs';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'
-import _ from 'lodash';
 
 export default class ChampionsHeader extends PureComponent {
-	
 
-	render() {
+	getProps = () => {
 		const {
 			navigation,
-		    renderIcon,
 		    inactiveTintColor,
 		    activeTintColor,
 		    jumpToIndex,
-		    getLabel,
 		} = this.props;
 
-		const {routes , index} = navigation.state;
+		this.navigation = navigation;
+		this.inactiveTintColor = inactiveTintColor;
+		this.activeTintColor = activeTintColor;
+		this.jumpToIndex = jumpToIndex;
+	}
+
+	allIconPressed = () => {
+		const { navigate } = this.navigation;
+		navigate('AllChampions');
+	}
+	
+	backIconPressed = () => {
+		const { navigate } = this.navigation;
+		navigate('FreeChampions');
+	}
+
+	get viewAllIcon() {
+		return (
+			<TouchableOpacity 
+				activeOpacity={0.4}
+          		onPress={this.allIconPressed}
+			>
+				<View style={styles.iconContainer}>
+					<MaterialIcon name={'apps'} size={23} color={this.inactiveTintColor} />
+					<Text style={[styles.iconLabel, {color: this.inactiveTintColor,}]}>VIEW ALL</Text>
+				</View>
+			</TouchableOpacity>
+		);
+	}
+
+	get backIcon() {
+		return (
+			<TouchableOpacity 
+				activeOpacity={0.4}
+          		onPress={this.backIconPressed}
+			>
+				<View style={styles.iconContainer}>
+					<Icon name={'chevron-left'} size={50} color={this.inactiveTintColor} />
+				</View>
+			</TouchableOpacity>
+		);
+	}
+	
+
+	render() {
+
+		this.getProps();
+
+		const {routes , index} = this.navigation.state;
 
 		const label = configs.headerLabels[index].toUpperCase();
 
 		return (
 			<View style={styles.header} >
-				<TouchableOpacity 
-					activeOpacity={0.4}
-              		onPress={() => { alert(`You've clicked a card`); }}
-				>
-					<View style={styles.iconContainer}>
-						{(index !== 0) ? <Icon name={'chevron-left'} size={50} color={inactiveTintColor} /> : null}
-					</View>
-				</TouchableOpacity>
+				<View style={styles.iconContainer}>
+					{(index !== 0) ? this.backIcon : []}
+				</View>
 				<View style={styles.labelContainer} >
-					<Text style={[styles.label, {color: activeTintColor}]}>
+					<Text style={[styles.label, {color: this.activeTintColor}]}>
 						{label}
 					</Text>
 				</View>
-				<TouchableOpacity 
-					activeOpacity={0.4}
-              		onPress={() => { alert(`You've clicked a card`); }}
-				>
-					<View style={styles.iconContainer}>
-						{(index === 0) ? <MaterialIcon name={'apps'} size={23} color={inactiveTintColor} /> : null}
-						<Text style={[styles.iconLabel, {color: inactiveTintColor,}]}>VIEW ALL</Text>
-					</View>
-				</TouchableOpacity>
+				<View style={styles.iconContainer}>
+					{(index === 0) ? this.viewAllIcon : []}
+				</View>
 			</View>
 		);
 	}

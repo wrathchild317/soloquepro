@@ -1,18 +1,22 @@
 /*---------------React------------------*/
-import React, { Component } from 'react';
-import {View, Text, Image, TouchableOpacity, TouchableHighlight, Button } from 'react-native';
+import React, { PureComponent } from 'react';
+import {View, Text, Image, TouchableHighlight, Button } from 'react-native';
 /*--------------Styles & Configs--------*/
 import styles from './styles';
 import configs from './configs';
 /*-------------import parallax---------*/
 import { ParallaxImage } from 'react-native-snap-carousel';
 /*--------------Utilities-------------*/
+import Ripple from 'react-native-material-ripple';
 
+export default class CarouselCard extends PureComponent {
 
-export default class CarouselCard extends Component {
-    shouldComponentUpdate(nextProps, nextState){
-        /*carousel ;already mounts and unmounts several time don't need them to rerender either*/
-        return false;
+    constructor(props) {
+      super(props);
+    
+      this.state = {
+        buttonPressed: false,
+      };
     }
 
     getProps = () => {
@@ -25,18 +29,26 @@ export default class CarouselCard extends Component {
         this.cardUri = cdn + '/img/champion/loading/' + champion.key + '_0.jpg';
         this.parallaxProps = parallaxProps;
         this.tagUri = configs.baseTagUrl + tags[0].toLowerCase() + '.png';
+        this.buttonPressed = this.state.buttonPressed;
     }
 
     handleButtonPress = () => {
         return true;
     }
+    onButtonPressIn = () => {
+        this.setState({buttonPressed: true});
+    } 
+    onButtonPressOut = () => {
+        this.setState({buttonPressed: false});
+    }
+
 
     get image() {
         return(
             <ParallaxImage
                 source={{ uri: this.cardUri}}
                 style={[styles.image]}
-                parallaxFactor={0.07}
+                parallaxFactor={0.02}
                 fadeDuration={500}
                 showSpinner={true}
                 spinnerColor={'rgba(255,255,255,0.7)'}
@@ -61,14 +73,19 @@ export default class CarouselCard extends Component {
                     </View>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <TouchableHighlight 
-                        activeOpacity={1}
-                        style={styles.button}
-                        underlayColor={'rgba(255,255,255,0.2)'}
+                    <Ripple
+                        rippleColor='white'
+                        rippleOpacity={0.5}
+                        rippleCentered={true}
+                        rippleDuration={600}
+                        style={[styles.button, (this.buttonPressed) ? styles.buttonPressed : []]}
                         onPress={this.handleButtonPress}
+                        onPressIn={this.onButtonPressIn}
+                        onPressOut={this.onButtonPressOut}
+                        delayPressOut={75}
                     >
                             <Text style={styles.buttonText}>{this.name + `'S INFO`} </Text>
-                    </TouchableHighlight>
+                    </Ripple>
                 </View>
             </View>
         );

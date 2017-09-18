@@ -27,7 +27,7 @@ export default StyleSheet.create({
     },
     image: {
         ...StyleSheet.absoluteFillObject,
-        resizeMode: 'cover',
+        resizeMode: 'contain',
     },
     imageContainer: {
         height: slideHeight * 0.9,
@@ -104,6 +104,10 @@ export default StyleSheet.create({
         justifyContent: 'center',
         borderColor: 'white',
         borderWidth: 2,
+    },
+    buttonPressed: {
+        height: 56,
+        width: itemWidth * 0.76
     },
     infoButton: {
         flex: 1,

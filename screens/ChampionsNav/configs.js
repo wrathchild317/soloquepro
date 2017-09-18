@@ -3,6 +3,7 @@ import React from 'react';
 import { TabNavigator } from 'react-navigation';
 //---------------------Import Scenes----------------------
 import FreeChampions from '../../scenes/FreeChampions';
+import AllChampions from '../../scenes/AllChampions';
 //------icon------
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 /*-------------------Custom Header----------------------*/
@@ -11,6 +12,7 @@ import ChampionsHeader from '../../components/ChampionsHeader';
 const configs = {
 	routeConfigs: {
 		FreeChampions: { screen: FreeChampions },
+        AllChampions: { screen : AllChampions}
 	},
 	navigatorConfigs: {
 		tabBarComponent: ChampionsHeader,

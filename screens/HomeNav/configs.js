@@ -17,7 +17,7 @@ const configs = {
 		swipeEnabled: false,
 		animationEnabled: false,
 		lazy: true,
-		initialRouteName: 'ChampionsNav',
+		initialRouteName: 'News',
 		tabBarOptions: {
     		activeTintColor: '#FFF',
     		inactiveTintColor: 'gold',

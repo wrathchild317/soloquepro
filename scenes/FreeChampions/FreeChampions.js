@@ -26,9 +26,9 @@ class FreeChampions extends Component {
 		this.freeChampions = (champions && freeChampions) ? 
 			_.map(freeChampions, function(champion){
 				const { id } = champion;
-				const { name, title, image, tags, info, key } = _.get(champions, id);
+				const { name, title, image, tags, info, key } = _.find(champions, {id: id});
 				return {id, name, title, image, tags, info, key}
-		}) : null
+		}) : null;
 
 	}
 
