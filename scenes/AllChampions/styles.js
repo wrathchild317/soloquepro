@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
-import { sqaureMargin } from './configs';
+import { StyleSheet, Platform } from 'react-native';
+import { sqaureMargin, NAVBAR_HEIGHT } from './configs';
 
 export default StyleSheet.create({
 	container: {
@@ -12,6 +12,8 @@ export default StyleSheet.create({
   	championRow: {
   		flexDirection: 'row',
   		justifyContent: 'flex-start',
-  		marginHorizontal: sqaureMargin,
   	},
+  	contentContainer: {
+    	paddingTop: NAVBAR_HEIGHT,
+  	}
 });

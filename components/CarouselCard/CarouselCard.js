@@ -30,6 +30,10 @@ export default class CarouselCard extends PureComponent {
         this.parallaxProps = parallaxProps;
         this.tagUri = configs.baseTagUrl + tags[0].toLowerCase() + '.png';
         this.buttonPressed = this.state.buttonPressed;
+
+        var lastChar = this.name[this.name.length-1];
+        var possesion = (lastChar != 'S') ? `'S` : `'`;
+        this.buttonText = this.name + possesion + ' INFO';
     }
 
     handleButtonPress = () => {
@@ -49,7 +53,7 @@ export default class CarouselCard extends PureComponent {
                 source={{ uri: this.cardUri}}
                 style={[styles.image]}
                 parallaxFactor={0.02}
-                fadeDuration={500}
+                fadeDuration={400}
                 showSpinner={true}
                 spinnerColor={'rgba(255,255,255,0.7)'}
                 containerStyle={styles.imageContainer}
@@ -84,7 +88,7 @@ export default class CarouselCard extends PureComponent {
                         onPressOut={this.onButtonPressOut}
                         delayPressOut={75}
                     >
-                            <Text style={styles.buttonText}>{this.name + `'S INFO`} </Text>
+                            <Text style={styles.buttonText}>{ this.buttonText }</Text>
                     </Ripple>
                 </View>
             </View>
