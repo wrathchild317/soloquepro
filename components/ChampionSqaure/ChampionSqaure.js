@@ -63,7 +63,7 @@ export default class ChampionSqaure extends PureComponent {
         			>	
         				<View style={[this.container, (this.sqaurePressed) ? this.imagePressedStyle : []]}>
         					<Image source={this.source} style={[this.imageStyle, (this.sqaurePressed) ? this.imagePressedStyle : [],]}/>	
-        					<Image source={require('../../assets/images/blueTexture.png')} style={[styles.imageMask, this.container]} />
+        					
 							{(this.label) ? 
 								<View style={[styles.labelContainer, this.labelContainer]}>
 									<Text style={this.labelStyle}>{this.label.toUpperCase()}</Text>

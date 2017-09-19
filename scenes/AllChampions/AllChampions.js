@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, Button, FlatList } from 'react-native';
+import { Text, View, Button, FlatList, Animated } from 'react-native';
 import styles from './styles';
-import configs from './configs';
+import configs, { NAVBAR_HEIGHT } from './configs';
 //---------------redux----------------------
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -10,13 +10,45 @@ import {bindActionCreators} from 'redux';
 import _ from 'lodash';
 import { PacmanIndicator } from 'react-native-indicators';
 import { sqaureMargin, imageWidth } from './configs';
-
+import CollapsableHeader from '../../components/CollapsableHeader';
 //import champion sqaure
 import ChampionSqaure from '../../components/ChampionSqaure';
 
+import ToolBar from '../../components/ToolBar';
+
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+
+
 class AllChampions extends Component {
 	
-	static navigationOptions = configs.navigationOptions;
+	static navigationOptions = {
+		...configs.navigationOptions,
+	}
+
+	constructor(props) {
+		super(props);
+		
+		//UsedForHeaderAnimation
+		const scrollAnim = new Animated.Value(0);
+	    const offsetAnim = new Animated.Value(0);
+
+		this.state = {
+			scrollAnim,
+			offsetAnim,
+			clampedScroll: Animated.diffClamp(
+				Animated.add(
+					scrollAnim.interpolate({
+						inputRange: [0, 1],
+						outputRange: [0, 1],
+						extrapolateLeft: 'clamp',
+					}),
+					offsetAnim,
+				),
+				0,
+				NAVBAR_HEIGHT ,
+      		),
+		};
+	}
 
 	getProps = () => {
 		const { champions, keys } = this.props.championData;
@@ -35,26 +67,11 @@ class AllChampions extends Component {
 			this.champions = null;
 		}
 
-	}
+		const { clampedScroll } = this.state;
+		this.clampedScroll = clampedScroll;
 
-	getChampionRow = (champions) => {
-		return (
-			<View style={styles.championRow}>
-				{ _.map(champions, (champion) => {
-					return (
-						<ChampionSqaure
-							key={champion.id}
-							label={champion.name}
-							champion={champion}
-							cdn={this.cdn}
-							{...configs.championSqaureConfigs}
-						/>
-					);
-				})}
-			</View>
-		);
 	}
-
+	
 	renderItem = ({item}) => {
 		return (
 			<ChampionSqaure
@@ -69,7 +86,7 @@ class AllChampions extends Component {
 	keyExtractor = (item) => item.key
 
 	getItemLayout = (data, index) => {
-		var itemHeight = sqaureMargin + imageWidth + 2;
+		var itemHeight = sqaureMargin + imageWidth + 4;
   		return {length: itemHeight, offset: itemHeight * index, index};
 	}
 
@@ -90,21 +107,37 @@ class AllChampions extends Component {
 
 		return (
 			<View style={styles.container}>
-				{
-					(this.champions) ? 
-						<FlatList
-							data={this.champions}
-							renderItem={this.renderItem}
-							keyExtractor={this.keyExtractor}
-							getItemLayout={this.getItemLayout}
-							numColumns={3}
-							initialNumToRender={15}
-							columnWrapperStyle={{marginVertical: 15}}
-							ItemSeparatorComponent={this.renderSeparator}
-						/> : 
-						<PacmanIndicator color={'white'}/>
-				}
-			</View>
+				<View>
+					{
+						(this.champions) ? 
+							<AnimatedFlatList
+								scrollEventThrottle={1}
+          						onScroll={Animated.event(
+            						[{ nativeEvent: { contentOffset: { y: this.state.scrollAnim } } }],
+            						{ useNativeDriver: true },
+         						)}
+								data={this.champions}
+								renderItem={this.renderItem}
+								keyExtractor={this.keyExtractor}
+								getItemLayout={this.getItemLayout}
+								numColumns={3}
+								initialNumToRender={15}
+								columnWrapperStyle={{marginVertical: 15}}
+								ItemSeparatorComponent={this.renderSeparator}
+								contentContainerStyle={styles.contentContainer}
+							/> : 
+							<PacmanIndicator color={'white'}/>
+					}
+				</View>
+				<CollapsableHeader 
+					clampedScroll={this.clampedScroll} 
+					{...configs.collapsableHeaderConfigs } 
+				>
+					<ToolBar 
+						{...configs.toolBarConfigs}
+					/>
+				</CollapsableHeader>
+	      </View>
 		);
 	}
 }

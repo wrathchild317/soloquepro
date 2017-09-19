@@ -1,4 +1,6 @@
+import React from 'react';
 import Dimensions from 'Dimensions';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 
@@ -7,8 +9,10 @@ function wp (percentage) {
     return Math.round(value);
 }
 
-const imageWidth = wp(27);
-export const sqaureMargin = wp(2);
+const imageWidth = wp(25);
+export const sqaureMargin = wp(3);
+
+export const NAVBAR_HEIGHT = 49;
 
 export default {
 	navigationOptions : {
@@ -19,7 +23,9 @@ export default {
   			flexDirection: 'column',
 			justifyContent: 'center',
 			alignItems: 'center',
-			marginHorizontal: sqaureMargin,
+            width: imageWidth + 2,
+            height: imageWidth + 2,
+            marginHorizontal: sqaureMargin,
   		},
   		imageContainerStyle: {
   			borderRadius: 5,
@@ -38,4 +44,29 @@ export default {
   			height: imageWidth,
   		}
   	},
+    collapsableHeaderConfigs: {
+      style: {
+        height: NAVBAR_HEIGHT,
+        backgroundColor: 'black',
+        borderBottomWidth: 1,
+        borderBottomColor: 'rgba(255,255,255,0.2)',
+      }
+    },
+    toolBarConfigs: {
+        searchIconColor: 'white',
+         textInputProps: {
+            autoCapitalize: 'words',
+            autoCorrect: false,
+            placeholder: 'SEARCH CHAMPION',
+            placeholderTextColor: 'rgba(211,211,211,0.5)',
+            underlineColorAndroid: 'transparent',
+            style: {
+                color: 'white',
+                fontSize: 18,
+            },
+            selectionColor: '#d3d3d3',
+         },
+         iconOne: <Icon name={'filter'} size={23} color={'white'}  />,
+         iconTwo: <Icon name={'sliders'} size={23} color={'white'}  />,
+    }
  }

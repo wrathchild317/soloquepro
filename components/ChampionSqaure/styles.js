@@ -21,4 +21,9 @@ export default StyleSheet.create({
 	 	left: 0,
 	 	opacity: 0.1,
 	 },
+	 imageContainerStyle: {
+  			borderRadius: 5,
+			borderColor: 'rgba(158, 133, 0, 0.6)',
+			borderWidth: 1,
+  	}
 });
