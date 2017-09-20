@@ -1,6 +1,7 @@
 import React from 'react';
 import Dimensions from 'Dimensions';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 
@@ -23,14 +24,9 @@ export default {
   			flexDirection: 'column',
 			justifyContent: 'center',
 			alignItems: 'center',
-            width: imageWidth + 2,
-            height: imageWidth + 2,
+            width: imageWidth,
+            height: imageWidth,
             marginHorizontal: sqaureMargin,
-  		},
-  		imageContainerStyle: {
-  			borderRadius: 5,
-			borderColor: 'rgba(158, 133, 0, 0.7)',
-			borderWidth: 1,
   		},
   		labelStyle: {
   			color: 'white',
@@ -38,11 +34,6 @@ export default {
   			textAlign: 'center',
   			fontSize: 10,
   		},
-  		imageStyle: {
-  			resizeMode: 'contain',
-  			width: imageWidth,
-  			height: imageWidth,
-  		}
   	},
     collapsableHeaderConfigs: {
       style: {
@@ -68,7 +59,7 @@ export default {
             },
             selectionColor: '#d3d3d3',
          },
-         iconOne: <Icon name={'filter'} size={23} color={'white'}  />,
+         iconOne: <MaterialIcon name={'filter-list'} size={30} color={'white'}  />,
          iconTwo: <Icon name={'sliders'} size={23} color={'white'}  />,
     }
  }

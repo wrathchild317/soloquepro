@@ -11,19 +11,22 @@ export default StyleSheet.create({
 		position: 'absolute',
 		bottom: 0,
 		left: 0,
-		backgroundColor: 'rgba(0,0,0,0.5)',
-		justifyContent: 'center',
-		alignContent: 'center',
+		justifyContent: 'flex-end',
 	},
-	imageMask: {
-		position: 'absolute',
-	 	bottom: 0,
-	 	left: 0,
-	 	opacity: 0.1,
-	 },
 	 imageContainerStyle: {
-  			borderRadius: 5,
-			borderColor: 'rgba(158, 133, 0, 0.6)',
-			borderWidth: 1,
+  		justifyContent: 'center',
+  		alignItems: 'center',
+  		backgroundColor: 'rgba(255,255,255,0.3)',
+  	},
+  	backgroundImageStyle: {
+  		position: 'absolute',
+  		resizeMode: 'contain',
+  	},
+  	imageStyle: {
+  		resizeMode: 'contain',
+  	},
+  	labelStyle: {
+  		textAlign: 'center',
   	}
+
 });
