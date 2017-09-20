@@ -30,6 +30,7 @@ export default class ToolBar extends Component {
             searchIconColor,
             xIconColor,
             iconSizes,
+            onChangeText,
         } = this.props;
 
         this.iconSizes = iconSizes;
@@ -48,6 +49,8 @@ export default class ToolBar extends Component {
         this.onIconTwoPressed = onIconTwoPressed;
         this.iconThree = iconThree;
         this.onIconThreePressed = onIconThreePressed;
+
+        this.changeText = onChangeText;
     }
 
 
@@ -64,6 +67,7 @@ export default class ToolBar extends Component {
         );
     }
 
+
     displayXIcon = (text) => {
         (text) ? this.setState({hasText: true}) : 
             this.setState({hasText: false});
@@ -71,14 +75,18 @@ export default class ToolBar extends Component {
 
     xIconPressed = () => {
         this.textInput.clear();
+        this.changeText('');
+
         //hack only way to fix otherwise keyboard keeps state
         this.textInput.setNativeProps({keyboardType: 'email-address'});
         this.textInput.setNativeProps({keyboardType: 'default'});
+        
         this.displayXIcon();
     }
 
     onChangeText = (text) => {
         this.displayXIcon(text);
+        this.changeText(text);
     }
 
     render () {
@@ -107,4 +115,5 @@ export default class ToolBar extends Component {
             </View>
         );
     }
+
 }

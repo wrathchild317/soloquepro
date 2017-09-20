@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, FlatList, Animated } from 'react-native';
+import { Text, View, Button, FlatList, Animated, Image, Keyboard } from 'react-native';
 import styles from './styles';
 import configs, { NAVBAR_HEIGHT } from './configs';
 //---------------redux----------------------
@@ -11,10 +11,9 @@ import _ from 'lodash';
 import { PacmanIndicator } from 'react-native-indicators';
 import { sqaureMargin, imageWidth } from './configs';
 import CollapsableHeader from '../../components/CollapsableHeader';
-//import champion sqaure
 import ChampionSqaure from '../../components/ChampionSqaure';
-
 import ToolBar from '../../components/ToolBar';
+
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -47,6 +46,7 @@ class AllChampions extends Component {
 				0,
 				NAVBAR_HEIGHT ,
       		),
+      		searchInput: '',
 		};
 	}
 
@@ -62,6 +62,14 @@ class AllChampions extends Component {
 			});
 
 			this.champions = championsInfo;
+
+			var searchString = this.state.searchInput.toLowerCase();
+			//filter champions according to search input 
+			this.champions = (this.state.searchInput) ?
+				_.filter(this.champions, (champion) => {
+					return champion.name.toLowerCase().contains(searchString);
+				}) : this.champions;
+
 			this.cdn = cdn + '/' + n.champion;
 		} else {
 			this.champions = null;
@@ -101,39 +109,79 @@ class AllChampions extends Component {
       />
     )
 
+    onChangeText = (text) => {
+    	this.setState({searchInput: text});
+    }
+
+    get sorryIcon() {
+		return (
+			<View style={styles.container}>
+				<Image
+					source={require('../../assets/images/sorry.png')}
+					style={styles.sorryImage}
+				/>
+				<Text 
+					style={[styles.sorryText, 
+						styles.sorryMainText
+					]}
+				>
+					{'Whoops!'}
+				</Text>	
+				<Text 
+					style={[styles.sorryText, 
+						styles.sorrySecondaryText
+					]}
+				>
+					{`We couldn't find the champion you were looking for.`}
+				</Text>
+			</View>
+		)
+			
+	}
+
+    get innerComponent() {
+    	var innerComponent = (this.champions) ? 
+			<AnimatedFlatList
+				scrollEventThrottle={1}
+				onScroll={
+					Animated.event(
+						[{ nativeEvent: { contentOffset: { y: this.state.scrollAnim } } }],
+						{ useNativeDriver: true },
+					)
+				}
+				keyboardDismissMode={'on-drag'}
+				removeClippedSubviews={true}
+				style={styles.flatList}
+				data={this.champions}
+				renderItem={this.renderItem}
+				keyExtractor={this.keyExtractor}
+				getItemLayout={this.getItemLayout}
+				numColumns={3}
+				initialNumToRender={15}
+				columnWrapperStyle={{marginVertical: 15}}
+				ItemSeparatorComponent={this.renderSeparator}
+				contentContainerStyle={styles.contentContainer}
+				ListEmptyComponent={this.sorryIcon}
+			/> : 
+			<PacmanIndicator color={'white'}/>
+
+		return innerComponent;
+    }
 
 	render() {
 		this.getProps();
-
+			
 		return (
 			<View style={styles.container}>
 				<View>
-					{
-						(this.champions) ? 
-							<AnimatedFlatList
-								scrollEventThrottle={1}
-          						onScroll={Animated.event(
-            						[{ nativeEvent: { contentOffset: { y: this.state.scrollAnim } } }],
-            						{ useNativeDriver: true },
-         						)}
-								data={this.champions}
-								renderItem={this.renderItem}
-								keyExtractor={this.keyExtractor}
-								getItemLayout={this.getItemLayout}
-								numColumns={3}
-								initialNumToRender={15}
-								columnWrapperStyle={{marginVertical: 15}}
-								ItemSeparatorComponent={this.renderSeparator}
-								contentContainerStyle={styles.contentContainer}
-							/> : 
-							<PacmanIndicator color={'white'}/>
-					}
+					{ this.innerComponent }
 				</View>
 				<CollapsableHeader 
 					clampedScroll={this.clampedScroll} 
 					{...configs.collapsableHeaderConfigs } 
 				>
 					<ToolBar 
+						onChangeText={this.onChangeText}
 						{...configs.toolBarConfigs}
 					/>
 				</CollapsableHeader>
