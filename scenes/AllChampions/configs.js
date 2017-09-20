@@ -54,6 +54,8 @@ export default {
     },
     toolBarConfigs: {
         searchIconColor: 'white',
+        xIconColor: 'rgba(211,211,211,0.5)',
+        iconSizes: 23,
          textInputProps: {
             autoCapitalize: 'words',
             autoCorrect: false,

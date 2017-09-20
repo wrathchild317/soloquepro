@@ -6,8 +6,8 @@ export default StyleSheet.create({
 		marginLeft: 5,
 	},
 	iconContainer: {
-		width: 49,
-		height: 49,
+		width: 45,
+		height: 45,
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
