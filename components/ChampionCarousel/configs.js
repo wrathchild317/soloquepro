@@ -9,7 +9,6 @@ export default {
     	inactiveSlideOpacity: 0.4,
     	enableMomentum: true,
     	activeSlideOffset: 20,
-    	swipeThreshold: 283,
     	enableSnap: false,
         apparitionDelay: 0,
 	}

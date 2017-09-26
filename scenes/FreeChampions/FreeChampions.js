@@ -13,22 +13,25 @@ import _ from 'lodash';
 /*---------------components--------------*/
 import ChampionCarousel from '../../components/ChampionCarousel';
 import { PacmanIndicator } from 'react-native-indicators';
+import { createLoadingUri } from '../../utils';
 
 class FreeChampions extends Component {
 
 	static navigationOptions = configs.navigationOptions;
 
 	getProps = () => {
-		const { champions, freeChampions } = this.props.championData;
-		const { realmData }= this.props.staticData;
+		const { freeChampions } = this.props.championData;
 
-		this.realmData = realmData;
-		this.freeChampions = (champions && freeChampions) ? 
-			_.map(freeChampions, function(champion){
-				const { id } = champion;
-				const { name, title, image, tags, info, key } = _.find(champions, {id: id});
-				return {id, name, title, image, tags, info, key}
-		}) : null;
+		//parseOut required Information because carousel
+		//causes rerender too many times and parsing should be done here
+		this.freeChampions = (freeChampions) ?
+			_.map(freeChampions, (champion) => {
+				const { skins, key, id, tags, name, title } = champion;
+				var skinUri =  createLoadingUri(key, 0);
+				return {id, tags, name, title, skinUri};
+			}) : null;
+
+		//pick the skin url here
 
 	}
 
@@ -40,10 +43,9 @@ class FreeChampions extends Component {
   	render() {
   		this.getProps();
 
-  		var innerComp = (this.freeChampions && this.realmData) ?
+  		var innerComp = (this.freeChampions) ?
 	     	<ChampionCarousel 
 	     			freeChampions={this.freeChampions}
-	     			realmData={this.realmData}
 	     	/> :
 	     	<PacmanIndicator color={'white'}/>
 

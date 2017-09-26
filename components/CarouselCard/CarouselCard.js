@@ -1,5 +1,5 @@
 /*---------------React------------------*/
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import {View, Text, Image, TouchableHighlight, Button } from 'react-native';
 /*--------------Styles & Configs--------*/
 import styles from './styles';
@@ -8,8 +8,9 @@ import configs from './configs';
 import { ParallaxImage } from 'react-native-snap-carousel';
 /*--------------Utilities-------------*/
 import Ripple from 'react-native-material-ripple';
+import _ from 'lodash';
 
-export default class CarouselCard extends PureComponent {
+export default class CarouselCard extends Component {
 
     constructor(props) {
       super(props);
@@ -19,21 +20,33 @@ export default class CarouselCard extends PureComponent {
       };
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return (!_.isEqual(nextState, this.state)); 
+    }
+
     getProps = () => {
-        const { champion, cdn, parallaxProps} = this.props;
-        const {id, tags, name, title} = champion;
+        const { champion, parallaxProps} = this.props;
+        const {champion_id: id, tags, name, title, skinUri} = champion;
+        
+        /*get champion info for card*/
         this.id = id;
         this.name = name.toUpperCase();
         this.title = title.toUpperCase();
-        this.tag = tags[0].toUpperCase()
-        this.cardUri = cdn + '/img/champion/loading/' + champion.key + '_0.jpg';
+        this.tag = tags[0].toUpperCase();
+        
+        /*set up card image info*/
         this.parallaxProps = parallaxProps;
-        this.tagUri = configs.baseTagUrl + tags[0].toLowerCase() + '.png';
-        this.buttonPressed = this.state.buttonPressed;
+        this.tagUri = configs.baseTagUrl + tags[0].toLowerCase() + '.png'; 
+        this.cardUri = skinUri;
 
+        /*set up button info*/
+        this.buttonPressed = this.state.buttonPressed;
         var lastChar = this.name[this.name.length-1];
         var possesion = (lastChar != 'S') ? `'S` : `'`;
         this.buttonText = this.name + possesion + ' INFO';
+        
+        /*other*/
+        this.parallaxProps = parallaxProps;
     }
 
     handleButtonPress = () => {

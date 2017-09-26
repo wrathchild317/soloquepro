@@ -24,9 +24,8 @@ export default {
   			flexDirection: 'column',
 			justifyContent: 'center',
 			alignItems: 'center',
-            width: imageWidth,
-            height: imageWidth,
-            marginHorizontal: sqaureMargin,
+        width: imageWidth,
+        height: imageWidth,
   		},
   		labelStyle: {
   			color: 'white',
@@ -60,6 +59,5 @@ export default {
             selectionColor: '#d3d3d3',
          },
          iconOne: <MaterialIcon name={'filter-list'} size={30} color={'white'}  />,
-         iconTwo: <Icon name={'sliders'} size={23} color={'white'}  />,
     }
  }

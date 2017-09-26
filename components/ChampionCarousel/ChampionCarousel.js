@@ -12,16 +12,14 @@ export default class ChampionCarousel extends Component {
 
     getProps = () => {
         this.freeChampions = this.props.freeChampions;
-        this.realmData = this.props.realmData;
     }
 
-    renderItem = ({item}, parallaxProps) => {
-        return <CarouselCard 
-                    champion={item} 
-                    parallaxProps={parallaxProps}
-                    cdn={this.realmData.cdn}
-                />
-    }
+    renderItem = ({item}, parallaxProps) => ( 
+        <CarouselCard 
+            champion={item} 
+            parallaxProps={parallaxProps}
+        />
+    )
 
     render () {
         this.getProps();

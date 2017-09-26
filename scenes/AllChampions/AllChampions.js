@@ -158,7 +158,7 @@ class AllChampions extends Component {
 				getItemLayout={this.getItemLayout}
 				numColumns={3}
 				initialNumToRender={15}
-				columnWrapperStyle={{marginVertical: 15}}
+				columnWrapperStyle={styles.columnWrapper}
 				ItemSeparatorComponent={this.renderSeparator}
 				contentContainerStyle={styles.contentContainer}
 				ListEmptyComponent={this.sorryIcon}

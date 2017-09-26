@@ -27,7 +27,6 @@ export default StyleSheet.create({
     },
     image: {
         ...StyleSheet.absoluteFillObject,
-        resizeMode: 'contain',
     },
     imageContainer: {
         height: slideHeight * 0.9,
