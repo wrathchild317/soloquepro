@@ -60,7 +60,6 @@ class FreeChampions extends Component {
 const mapStateToProps = (state) => {
 	return {
 		championData: state.championData,
-		staticData: state.staticData,
 	}
 }
 
