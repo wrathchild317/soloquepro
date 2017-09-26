@@ -34,7 +34,7 @@ export const getChampionData = () => {
 
 export const getFreeChampions = () => {
 	return (dispatch) => {
-		fetchData('http://loldata.services.zam.com/v1/champion?fields=champion_id,name,tags,title,skins,key,info&in_rotation=true&sort=name').then((data) => {
+		fetchData('http://169.231.35.49:8080/lol/static-data/champions?fields=champion_id,name,tags,title,skins,key,info&in_rotation=true&sort=name').then((data) => {
 			dispatch({
 				type: 'SET_FREE_CHAMPIONS',
 				payload: data,
