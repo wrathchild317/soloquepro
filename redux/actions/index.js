@@ -30,7 +30,7 @@ export const getChampionData = () => {
 			});
 		});
 	}
-}
+} 
 
 export const getFreeChampions = () => {
 	return (dispatch) => {
