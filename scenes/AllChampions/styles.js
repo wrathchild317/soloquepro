@@ -15,14 +15,9 @@ export default StyleSheet.create({
 	    alignItems: 'center',
 	    justifyContent:'center',
   	},
-  	championRow: {
-  		flexDirection: 'row',
-  		justifyContent: 'flex-start',
-  	},
   	contentContainer: {
-    	paddingTop: NAVBAR_HEIGHT,
-    	justifyContent: 'flex-start',
-    	width: '100%',
+    	justifyContent: 'center',
+    	width: viewportWidth,
   	},
   	sorryImage: {
   		width: sorryImageHeight,
@@ -42,6 +37,14 @@ export default StyleSheet.create({
   		fontSize: viewportWidth * 0.04,
   	},
   	flatList: {
+      paddingTop: NAVBAR_HEIGHT,
   		width: viewportWidth,
   	},
+    columnWrapper: {
+      paddingHorizontal: 20,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginVertical: 15,
+      width: viewportWidth,
+    }
 });

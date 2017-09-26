@@ -14,3 +14,8 @@ export function fetchData(path) {
 			console.log(err);
 		});
 }
+
+export function createLoadingUri(key, skinNum){
+	return 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/'
+			+ key + '_' + skinNum + '.jpg';
+}

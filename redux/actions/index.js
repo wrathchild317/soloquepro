@@ -34,10 +34,10 @@ export const getChampionData = () => {
 
 export const getFreeChampions = () => {
 	return (dispatch) => {
-		fetchData('http://192.168.1.73:8080/lol/platform/v3/champions?freeToPlay=true').then((data) => {
+		fetchData('http://loldata.services.zam.com/v1/champion?fields=champion_id,name,tags,title,skins,key,info&in_rotation=true&sort=name').then((data) => {
 			dispatch({
 				type: 'SET_FREE_CHAMPIONS',
-				payload: data.champions,
+				payload: data,
 			});
 		});
 	}
