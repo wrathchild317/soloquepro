@@ -5,6 +5,8 @@ import configs, { NAVBAR_HEIGHT } from './configs';
 //---------------redux----------------------
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+//---------------actions------------------
+import { getChampionData, } from '../../redux/actions';
 
 //----------------utils---------------------
 import _ from 'lodash';
@@ -50,18 +52,17 @@ class AllChampions extends Component {
 		};
 	}
 
+	componentDidMount() {
+		console.log('mounted');
+		this.props.getChampionData(configs.initialSortValue);
+	}
+
 	getProps = () => {
-		const { champions, keys } = this.props.championData;
-		const { realmData } = this.props.staticData;
+		const { champions } = this.props.championData;
 
-		const {n, cdn} = realmData;
+		if(champions) {
 
-		if(champions && keys && realmData) {
-			var championsInfo = _.map(keys, (key) => {
-				return (({name, id, key}) => ({name, id, key}))(champions[key]);
-			});
-
-			this.champions = championsInfo;
+			this.champions = champions;
 
 			var searchString = this.state.searchInput.toLowerCase();
 			//filter champions according to search input 
@@ -70,7 +71,6 @@ class AllChampions extends Component {
 					return champion.name.toLowerCase().contains(searchString);
 				}) : this.champions;
 
-			this.cdn = cdn + '/' + n.champion;
 		} else {
 			this.champions = null;
 		}
@@ -85,13 +85,12 @@ class AllChampions extends Component {
 			<ChampionSqaure
 				label={item.name}
 				champion={item}
-				cdn={this.cdn}
 				{...configs.championSqaureConfigs}
 			/>
 		);
 	}
 
-	keyExtractor = (item) => item.key
+	keyExtractor = (item) => item.champion_id
 
 	getItemLayout = (data, index) => {
 		var itemHeight = sqaureMargin + imageWidth + 4;
@@ -193,9 +192,14 @@ class AllChampions extends Component {
 const mapStateToProps = (state) => {
 	return {
 		championData: state.championData,
-		staticData: state.staticData,
 	}
 }
 
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+		getChampionData: getChampionData,
+	}, dispatch);
+}
 
-export default connect(mapStateToProps)(AllChampions);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllChampions);

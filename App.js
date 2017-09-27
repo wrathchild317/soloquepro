@@ -14,13 +14,13 @@ export default class App extends Component {
 	}
 	async componentWillMount() {
 	    await Font.loadAsync({
-	     FontAwesome: require('./assets/fonts/FontAwesome.ttf'),
-	     MaterialIcons: require('./assets/fonts/MaterialIcons.ttf'),
-	     MaterialCommunityIcons: require('./assets/fonts/MaterialCommunityIcons.ttf'),
-	     EvilIcons: require('./assets/fonts/EvilIcons.ttf'),
-	     Elianto: require('./assets/fonts/Elianto-Regular.ttf'),
-	     Nunito: require('./assets/fonts/Nunito-Regular.ttf'),
-	    });
+	    	FontAwesome: require('./assets/fonts/FontAwesome.ttf'),
+		    MaterialIcons: require('./assets/fonts/MaterialIcons.ttf'),
+		    MaterialCommunityIcons: require('./assets/fonts/MaterialCommunityIcons.ttf'),
+		    EvilIcons: require('./assets/fonts/EvilIcons.ttf'),
+		    Elianto: require('./assets/fonts/Elianto-Regular.ttf'),
+		    Nunito: require('./assets/fonts/Nunito-Regular.ttf'),
+    	});
 
 	    this.setState({fontsLoaded: true})
   	}

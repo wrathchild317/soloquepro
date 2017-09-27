@@ -32,7 +32,7 @@ export default class ChampionSqaure extends PureComponent {
     }  
 
 	getProps = () => {
-		const {imageContainerStyle, style, imageStyle, label, labelStyle, champion, cdn} = this.props 
+		const {imageContainerStyle, style, imageStyle, label, labelStyle, champion,} = this.props 
 
 		const { width, height } = style;
 
@@ -53,7 +53,7 @@ export default class ChampionSqaure extends PureComponent {
 		this.labelPressedStyle = {fontSize: wp(fontSize, 0.87)}
 
 		this.label = label; //if null no label
-		this.source = {uri: cdn + '/img/champion/' + champion.key + '.png'};
+		this.source = {uri: champion.champion_square_url};
 		this.imageContainerStyle = imageContainerStyle;
 		this.sqaurePressed = this.state.sqaurePressed;
 		this.key = champion.key;

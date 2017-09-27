@@ -9,7 +9,7 @@ import { addNavigationHelpers,  NavigationActions } from 'react-navigation';
 //-----------import styles ----------------------
 import styles from './styles';
 //------------actions-----------------------------//
-import { getChampionData, getRealmData } from '../../redux/actions';
+import { getChampionData, } from '../../redux/actions';
 
 
 class App extends Component {
@@ -27,8 +27,6 @@ class App extends Component {
 
 	componentDidMount() {
 		BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
-		this.props.getChampionData();
-		this.props.getRealmData();
 	}
 
 	componentWillUnmount(){
@@ -59,17 +57,5 @@ const mapStateToProps = (state) => {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	var props = bindActionCreators({
-		getChampionData: getChampionData,
-		getRealmData: getRealmData,
-	}, dispatch);
 
-	return {
-		...props,
-		dispatch: dispatch,
-	}
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps)(App)

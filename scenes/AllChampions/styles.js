@@ -16,6 +16,7 @@ export default StyleSheet.create({
 	    justifyContent:'center',
   	},
   	contentContainer: {
+      paddingTop: NAVBAR_HEIGHT,
     	justifyContent: 'center',
     	width: viewportWidth,
   	},
@@ -37,7 +38,6 @@ export default StyleSheet.create({
   		fontSize: viewportWidth * 0.04,
   	},
   	flatList: {
-      paddingTop: NAVBAR_HEIGHT,
   		width: viewportWidth,
   	},
     columnWrapper: {

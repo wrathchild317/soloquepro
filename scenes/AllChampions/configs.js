@@ -59,5 +59,6 @@ export default {
             selectionColor: '#d3d3d3',
          },
          iconOne: <MaterialIcon name={'filter-list'} size={30} color={'white'}  />,
-    }
+    },
+    initialSortValue: 'name',
  }
