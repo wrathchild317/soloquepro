@@ -35,7 +35,6 @@ export default class CarouselCard extends Component {
         this.tag = tags[0].toUpperCase();
         
         /*set up card image info*/
-        this.parallaxProps = parallaxProps;
         this.tagUri = configs.baseTagUrl + tags[0].toLowerCase() + '.png'; 
         this.cardUri = skinUri;
 

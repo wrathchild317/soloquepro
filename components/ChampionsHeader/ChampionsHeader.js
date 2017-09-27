@@ -63,7 +63,7 @@ export default class ChampionsHeader extends PureComponent {
 
 		this.getProps();
 
-		const {routes , index} = this.navigation.state;
+		const {index} = this.navigation.state;
 
 		const label = configs.headerLabels[index].toUpperCase();
 

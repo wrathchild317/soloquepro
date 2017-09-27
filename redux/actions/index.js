@@ -1,13 +1,5 @@
 import { fetchData } from '../../utils';
 
-export const sumButtonClick = (val) => {
-	var newVal = val + 1;
-    return {
-        type: 'SUM_CLICK',
-        payload: newVal
-    };
-}
-
 export const getChampionData = (sort) => {
 	return (dispatch) => {
 		fetchData('http://169.231.36.147:8080/lol/static-data/champions?fields=champion_id,name,tags,champion_square_url&sort=' + sort).then((data) => {
