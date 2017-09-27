@@ -12,4 +12,5 @@ const allReducers = combineReducers({
     championsNavigation: ChampionsNavigationReducer,
     championData: ChampionReducer,
 });
+
 export default allReducers 
