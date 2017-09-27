@@ -13,4 +13,4 @@ const allReducers = combineReducers({
     championData: ChampionReducer,
 });
 
-export default allReducers
+export default allReducers 
