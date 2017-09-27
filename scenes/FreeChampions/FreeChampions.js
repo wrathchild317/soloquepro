@@ -68,7 +68,6 @@ const mapDispatchToProps = (dispatch) => {
 	var props = bindActionCreators({getFreeChampions: getFreeChampions}, dispatch);
 	return {
 		...props,
-		dispatch: dispatch,
 	}
 }
 

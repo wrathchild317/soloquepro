@@ -18,11 +18,7 @@ export default function (state = {}, action) {
         case 'SET_ALL_CHAMPIONS':
                 return {...state, champions: payload};
             break;
-        case 'SET_CHAMPION_KEYS':
-                return {...state, keys: payload};
-            break;
         default:
-        	console.log(action.type);
         	break;
     }
     return state;
