@@ -6,7 +6,7 @@ import configs, { NAVBAR_HEIGHT } from './configs';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 //---------------actions------------------
-import { getChampionData, } from '../../redux/actions';
+import { getChampionData } from '../../redux/actions';
 
 //----------------utils---------------------
 import _ from 'lodash';
@@ -53,7 +53,6 @@ class AllChampions extends Component {
 	}
 
 	componentDidMount() {
-		console.log('mounted');
 		this.props.getChampionData(configs.initialSortValue);
 	}
 
