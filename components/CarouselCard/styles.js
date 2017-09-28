@@ -64,7 +64,7 @@ export default StyleSheet.create({
         justifyContent: 'flex-start',
         height: 80,
         paddingTop: 5,
-        marginRight: 5,
+        marginRight: 25,
     },
     buttonContainer: {
         width: itemWidth,
