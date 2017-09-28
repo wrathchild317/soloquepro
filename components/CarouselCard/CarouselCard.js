@@ -1,9 +1,10 @@
 /*---------------React------------------*/
 import React, { Component } from 'react';
-import {View, Text, Image, TouchableHighlight, Button, ScrollView, Animated } from 'react-native';
+import {View, Text, Image, TouchableHighlight, Button, ScrollView, Animated, TouchableOpacity } from 'react-native';
 /*--------------Styles & Configs--------*/
-import styles, { slideHeight } from './styles';
+import styles, { slideHeight, itemWidth } from './styles';
 import configs from './configs';
+import EvilIcon from 'react-native-vector-icons/EvilIcons';
 /*-------------import parallax---------*/
 import { ParallaxImage } from 'react-native-snap-carousel';
 /*--------------Utilities-------------*/
@@ -30,7 +31,7 @@ export default class CarouselCard extends Component {
     getProps = () => {
         const { champion, parallaxProps} = this.props;
         const { heightAnim, opacityAnim } = this.state;
-        const {champion_id: id, tags, name, title, skinUri} = champion;
+        const {champion_id: id, tags, name, title, skinUri, blurb, info, lore, color_palette, win_rate, popularity, ban_rate} = champion;
         
         /*get champion info for card*/
         this.id = id;
@@ -52,7 +53,15 @@ export default class CarouselCard extends Component {
         /*animated values*/
         this.heightAnim = heightAnim;
         this.opacityAnim = opacityAnim;
-        
+
+        /*description info*/
+        this.blurb = blurb;
+        this.lore = lore;
+        this.win_rate = win_rate;
+        this.popularity = popularity;
+        this.ban_rate = ban_rate;
+        this.color_palette = color_palette;
+
         /*other*/
         this.parallaxProps = parallaxProps;
     }
@@ -82,6 +91,36 @@ export default class CarouselCard extends Component {
         this.setState({buttonPressed: false});
     }
 
+    createPressableIcon = (icon, onPressed) => {
+        return (
+            <TouchableOpacity 
+                activeOpacity={0.4}
+                onPress={onPressed}
+            >
+                <View style={styles.iconContainer}>
+                    {icon}
+                </View>
+            </TouchableOpacity>
+        );
+    }
+
+    xIconPressed = () => {
+        this.setState({infoBtnPressed: !this.infoBtnPressed});
+        Animated.timing(
+            this.heightAnim, 
+            {
+                toValue: slideHeight * 0.47,
+                duration: 300,
+            }
+        ).start();
+        Animated.timing(
+            this.opacityAnim, 
+            {
+                toValue: 0.7,
+                duration: 300,
+            }
+        ).start();
+    }
 
     get image() {
         return(
@@ -136,9 +175,35 @@ export default class CarouselCard extends Component {
     }
 
     get champDescription() {
+        var roundedWinRate = Math.round( this.win_rate * 1000 ) / 10;
+        var roundedPopularity = Math.round( this.popularity * 1000 ) / 10;
+        var roundedBanRate = Math.round( this.ban_rate * 1000 ) / 10;
         return(
             <View style={ {flex: 1} }>
-                
+                <View style={{alignItems: 'center'}}>
+                    <Text style={[styles.title, {fontSize: 20, marginBottom: 5, marginLeft: 7, color: '#adadad'}]}>STATISTICS</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                     <Text style={[styles.title, {fontSize: 16, marginBottom: 2, marginLeft: 10, color: '#b78909'}]}>WIN RATE: </Text>
+                     <Text style={[styles.title, {fontSize: 16, marginBottom: 2, color: '#828282'}]}>{roundedWinRate}%</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={[styles.title, {fontSize: 16, marginBottom: 2, marginLeft: 10, color: '#b78909'}]}>POPULARITY: </Text>
+                    <Text style={[styles.title, {fontSize: 16, marginBottom: 2, color: '#828282'}]}>{roundedPopularity}%</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={[styles.title, {fontSize: 16, marginBottom: 2, marginLeft: 10, color: '#b78909'}]}>BAN RATE: </Text>
+                    <Text style={[styles.title, {fontSize: 16, marginBottom: 2, color: '#828282'}]}>{roundedBanRate}%</Text>
+                </View>
+                <View style={{alignItems: 'center'}}>
+                    <View style={[styles.separationLine]} />
+                </View>
+                <View style={{alignItems: 'center'}}>
+                    <Text style={[styles.title, {fontSize: 20, marginBottom: 2, marginLeft: 7, color: '#adadad'}]}>DESCRIPTION</Text>
+                </View>
+                <View style={{flexDirection: 'column', justifyContent: 'center'}}>
+                    <Text style={[styles.title, {fontSize: 17, fontFamily: 'Nunito', marginBottom: 2, marginLeft: 10, color: '#828282' }]}>{this.blurb}</Text>
+                </View>
             </View>
             )
     }
@@ -153,6 +218,10 @@ export default class CarouselCard extends Component {
                     <Animated.ScrollView style={[styles.radiusMask, {height: this.heightAnim, opacity: this.opacityAnim}]} >
                         { this.championInfo }
                         { this.infoBtnPressed ? this.champDescription : null }
+                        <View style={{position: 'absolute', top: 5, right: 5}}>
+                            { this.infoBtnPressed ? this.createPressableIcon(<EvilIcon name={'close'} size={34} color={'rgba(211,211,211,0.5)'} />,
+                            this.xIconPressed) : null }
+                        </View>
                     </Animated.ScrollView>
                 </View>
             </View>

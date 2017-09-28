@@ -132,6 +132,12 @@ export default StyleSheet.create({
         height: 1,
         backgroundColor: 'rgba(255,215,0, 0.45)',
     },
+    separationLine: {
+        width: itemWidth * 0.95,
+        height: 1,
+        marginVertical: 5,
+        backgroundColor: 'rgba(255,215,0, 0.45)',
+    },
     lineAnimated: {
         top: 65,
     }
