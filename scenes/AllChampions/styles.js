@@ -5,7 +5,6 @@ import Dimensions from 'Dimensions';
 const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
 
 const sorryImageHeight = viewportWidth * 0.75;
-console.log(sorryImageHeight);
 
 export default StyleSheet.create({
 	container: {

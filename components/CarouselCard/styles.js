@@ -9,7 +9,7 @@ function wp (percentage) {
     return Math.round(value);
 }
 
-const slideHeight = viewportHeight * 0.9;
+export const slideHeight = viewportHeight * 0.9;
 const slideWidth = wp(80);
 const itemHorizontalMargin = wp(1);
 
@@ -37,8 +37,6 @@ export default StyleSheet.create({
         bottom: 0,
         left: 0,
         right: 0,
-        height: slideHeight * 0.47,
-        opacity: 0.7,
         backgroundColor: 'black',
     },
     infoContainer: {
@@ -48,6 +46,12 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         height: slideHeight * 0.47 * 0.20,
+        paddingLeft: 25,
+    },
+    tagContainerAnimated:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        height: 0,
         paddingLeft: 25,
     },
     mainInfoContainer: {
@@ -86,6 +90,10 @@ export default StyleSheet.create({
         marginLeft: 7,
         marginRight: 8,
     },
+    tagImageAnimated: {
+        width: 50,
+        height: 50
+    },
     name: {
         fontSize: 80 * 0.26,
         color: 'white',
@@ -118,10 +126,19 @@ export default StyleSheet.create({
     },
     line: {
         position: 'absolute',
-        bottom: 10,
+        top: 45,
         left: 25,
         width: itemWidth * 0.8,
         height: 1,
         backgroundColor: 'rgba(255,215,0, 0.45)',
+    },
+    separationLine: {
+        width: itemWidth * 0.95,
+        height: 1,
+        marginVertical: 5,
+        backgroundColor: 'rgba(255,215,0, 0.45)',
+    },
+    lineAnimated: {
+        top: 65,
     }
 })
