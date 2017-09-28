@@ -29,7 +29,7 @@ export default StyleSheet.create({
         ...StyleSheet.absoluteFillObject,
     },
     imageContainer: {
-        height: slideHeight * 0.9,
+        height: slideHeight * 0.85,
         backgroundColor: 'rgba(255,255,255,0.2)',
     },
     radiusMask: {
@@ -102,6 +102,34 @@ export default StyleSheet.create({
     title: {
         fontFamily: 'Elianto',
         color: 'rgba(255,255,255,0.75)',
+    },
+    descriptionTitle: {
+        fontFamily: 'Elianto',
+        color: 'rgba(255,255,255,0.75)',
+        fontSize: 20, 
+        marginBottom: 5, 
+        marginLeft: 7, 
+        color: '#adadad',
+    },
+    descriptionText: {
+        fontSize: 17, 
+        fontFamily: 'Nunito', 
+        marginBottom: 2, 
+        marginLeft: 10, 
+        color: '#828282',
+    },
+    ratesTitle: {
+        fontFamily: 'Elianto',
+        color: 'rgba(255,255,255,0.75)',
+        fontSize: 16,
+        marginBottom: 2, 
+        marginLeft: 10, 
+        color: '#b78909',
+    },
+    rates: {
+        fontSize: 16, 
+        marginBottom: 2, 
+        color: '#828282',
     },
     button: {
         height: 60,

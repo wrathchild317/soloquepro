@@ -10,6 +10,8 @@ import { ParallaxImage } from 'react-native-snap-carousel';
 /*--------------Utilities-------------*/
 import Ripple from 'react-native-material-ripple';
 import _ from 'lodash';
+/*--------------Components-------------*/
+import InfoChart from '../InfoChart/InfoChart'
 
 export default class CarouselCard extends Component {
 
@@ -61,6 +63,7 @@ export default class CarouselCard extends Component {
         this.popularity = popularity;
         this.ban_rate = ban_rate;
         this.color_palette = color_palette;
+        this.info = info;
 
         /*other*/
         this.parallaxProps = parallaxProps;
@@ -73,7 +76,7 @@ export default class CarouselCard extends Component {
             Animated.timing(
                 this.heightAnim, 
                 {
-                    toValue: slideHeight * 0.9,
+                    toValue: slideHeight * 0.85,
                     duration: 300,
                 }
             ).start();
@@ -176,37 +179,63 @@ export default class CarouselCard extends Component {
         );
     }
 
-    get champDescription() {
+    get statisticsInfo(){
         var roundedWinRate = Math.round( this.win_rate * 1000 ) / 10;
         var roundedPopularity = Math.round( this.popularity * 1000 ) / 10;
         var roundedBanRate = Math.round( this.ban_rate * 1000 ) / 10;
         return(
-            <View style={ {flex: 1} }>
+            <View>
                 <View style={{alignItems: 'center'}}>
-                    <Text style={[styles.title, {fontSize: 20, marginBottom: 5, marginLeft: 7, color: '#adadad'}]}>STATISTICS</Text>
+                    <Text style={styles.descriptionTitle}>STATISTICS</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
-                     <Text style={[styles.title, {fontSize: 16, marginBottom: 2, marginLeft: 10, color: '#b78909'}]}>WIN RATE: </Text>
-                     <Text style={[styles.title, {fontSize: 16, marginBottom: 2, color: '#828282'}]}>{roundedWinRate}%</Text>
+                     <Text style={styles.ratesTitle}>WIN RATE: </Text>
+                     <Text style={[styles.ratesTitle, styles.rates]}>{roundedWinRate}%</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
-                    <Text style={[styles.title, {fontSize: 16, marginBottom: 2, marginLeft: 10, color: '#b78909'}]}>POPULARITY: </Text>
-                    <Text style={[styles.title, {fontSize: 16, marginBottom: 2, color: '#828282'}]}>{roundedPopularity}%</Text>
+                    <Text style={styles.ratesTitle}>POPULARITY: </Text>
+                    <Text style={[styles.ratesTitle, styles.rates ]}>{roundedPopularity}%</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
-                    <Text style={[styles.title, {fontSize: 16, marginBottom: 2, marginLeft: 10, color: '#b78909'}]}>BAN RATE: </Text>
-                    <Text style={[styles.title, {fontSize: 16, marginBottom: 2, color: '#828282'}]}>{roundedBanRate}%</Text>
-                </View>
-                <View style={{alignItems: 'center'}}>
-                    <View style={[styles.separationLine]} />
-                </View>
-                <View style={{alignItems: 'center'}}>
-                    <Text style={[styles.title, {fontSize: 20, marginBottom: 2, marginLeft: 7, color: '#adadad'}]}>DESCRIPTION</Text>
-                </View>
-                <View style={{flexDirection: 'column', justifyContent: 'center'}}>
-                    <Text style={[styles.title, {fontSize: 17, fontFamily: 'Nunito', marginBottom: 2, marginLeft: 10, color: '#828282' }]}>{this.blurb}</Text>
+                    <Text style={styles.ratesTitle}>BAN RATE: </Text>
+                    <Text style={[styles.ratesTitle, styles.rates ]}>{roundedBanRate}%</Text>
                 </View>
             </View>
+        );
+    }
+
+    get separationLine(){
+        return(
+            <View style={{alignItems: 'center'}}>
+                <View style={[styles.separationLine]} />
+            </View>
+            );
+    }
+
+    get descriptionInfo(){
+       return( 
+            <View>
+                <View style={{alignItems: 'center'}}>
+                    <Text style={styles.descriptionTitle}>DESCRIPTION</Text>
+                </View>
+                <View style={{flexDirection: 'column', justifyContent: 'center'}}>
+                    <Text style={styles.descriptionText}>{this.blurb}</Text>
+                </View>
+            </View>
+        );
+    }
+
+    get champDescription() {
+        return(
+            <View style={ {flex: 1} }>
+                <InfoChart info={ this.info } colors={ this.color_palette } />
+                { this.separationLine }
+                { this.statisticsInfo }
+                { this.separationLine }
+                { this.descriptionInfo }
+                { this.separationLine }
+            </View>
+
             )
     }
 
@@ -220,11 +249,11 @@ export default class CarouselCard extends Component {
                     <Animated.ScrollView style={[styles.radiusMask, {height: this.heightAnim, opacity: this.opacityAnim}]} >
                         { this.championInfo }
                         { this.infoBtnPressed ? this.champDescription : null }
-                        <View style={{position: 'absolute', top: 5, right: 5}}>
-                            { this.infoBtnPressed ? this.createPressableIcon(<EvilIcon name={'close'} size={34} color={'rgba(211,211,211,0.5)'} />,
-                            this.xIconPressed) : null }
-                        </View>
                     </Animated.ScrollView>
+                    <View style={{position: 'absolute', top: 5, right: 5}}>
+                        { this.infoBtnPressed ? this.createPressableIcon(<EvilIcon name={'close'} size={34} color={'rgba(211,211,211,0.5)'} />,
+                        this.xIconPressed) : null }
+                    </View>
                 </View>
             </View>
         );
