@@ -67,22 +67,24 @@ export default class CarouselCard extends Component {
     }
 
     handleButtonPress = () => {
-        this.setState({ infoBtnPressed: !this.infoBtnPressed });
+        setTimeout(() => {
+            this.setState({ infoBtnPressed: !this.infoBtnPressed });
 
-        Animated.timing(
-            this.heightAnim, 
-            {
-                toValue: slideHeight * 0.9,
-                duration: 300,
-            }
-        ).start();
-        Animated.timing(
-            this.opacityAnim, 
-            {
-                toValue: 0.875,
-                duration: 300,
-            }
-        ).start();
+            Animated.timing(
+                this.heightAnim, 
+                {
+                    toValue: slideHeight * 0.9,
+                    duration: 300,
+                }
+            ).start();
+            Animated.timing(
+                this.opacityAnim, 
+                {
+                    toValue: 0.875,
+                    duration: 300,
+                }
+            ).start();
+        }, 110);
     }
     onButtonPressIn = () => {
         this.setState({buttonPressed: true});
@@ -144,7 +146,7 @@ export default class CarouselCard extends Component {
                         rippleColor='white'
                         rippleOpacity={0.5}
                         rippleCentered={true}
-                        rippleDuration={600}
+                        rippleDuration={250}
                         style={[styles.button, (this.buttonPressed) ? styles.buttonPressed : []]}
                         onPress={this.handleButtonPress}
                         onPressIn={this.onButtonPressIn}
@@ -166,7 +168,7 @@ export default class CarouselCard extends Component {
                     <Image style={[styles.tagImage, this.infoBtnPressed ? styles.tagImageAnimated : [] ]} source={{uri: this.tagUri}} />
                     <View style={styles.fullNameContainer}>
                         <Text style={styles.name}>{this.name}</Text>
-                        <Text numberOfLines={2} style={styles.title}>{ this.title }</Text> 
+                        <Text numberOfLines={2} style={[styles.title, this.infoBtnPressed ? {marginRight: 35} : []]}>{ this.title }</Text> 
                     </View>
                 </View>
                 { infoBtn }
