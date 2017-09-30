@@ -27,8 +27,7 @@ class FreeChampions extends Component {
 		this.freeChampions = (freeChampions) ?
 			_.map(freeChampions, (champion) => {
 				const { skins } = champion;
-				var randomSkin = Math.floor(Math.random() * skins.length);
-				var skinUri =  skins[randomSkin].media.loading_url;
+				var skinUri =  skins[0].media.loading_url;
 
 				return {...champion, skinUri };
 			}) : null;
