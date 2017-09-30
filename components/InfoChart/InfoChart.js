@@ -6,6 +6,9 @@ import styles from './styles';
 import { slideHeight, itemWidth } from '../CarouselCard/styles';
 import configs from './configs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+/*--------------Utilities--------*/
+import { manipColor } from '../../utils'
+import { isColor } from '../../utils'
 
 export default class InfoChart extends Component {
 
@@ -15,7 +18,7 @@ export default class InfoChart extends Component {
 
     getProps = () => {
         const { attack, defense, magic, difficulty } = this.props.info;
-        const { main: mainColor, dark: darkColor } = this.props.colors; 
+        const { main: mainColor, dark: darkColor, light: lightColor } = this.props.colors; 
 
         this.attack = attack;
         this.defense = defense;
@@ -23,15 +26,24 @@ export default class InfoChart extends Component {
         this.difficulty = difficulty;
         this.mainColor = mainColor; 
         this.darkColor = darkColor;
+        this.lightColor = manipColor(lightColor, 20);
     }
 
     obtainChart = (infoType, iconName, text) => {
         var amountOfEmptyViews = 10 - infoType;
         var filledViews = [];
+        var counterColorManip = 0;
+        var currentColor = this.lightColor;
+        var darkerColor = manipColor(this.lightColor, -5); 
         var key = 0;
 
         for( var i = key; i < infoType; i++, key++ ){
-            filledViews.push(<View key={key} style={{ height: 7, width: '8%', marginRight: 2, opacity: 1, backgroundColor: this.mainColor, borderColor: this.darkColor, borderWidth: 2, borderStyle: 'solid' }}></View>)
+            filledViews.push(<View key={key} style={{ height: 7, width: '8%', marginRight: 2, opacity: 1, backgroundColor: currentColor, borderColor: darkerColor, borderWidth: 2, borderStyle: 'solid' }}></View>)
+            counterColorManip -= 10;
+            var tempDarkerColor = manipColor(this.lightColor, counterColorManip-5);
+            var tempCurrentColor = manipColor(this.lightColor, counterColorManip);
+            currentColor = isColor(tempCurrentColor) ? tempCurrentColor : this.darkColor;
+            darkerColor = isColor(tempDarkerColor) ? tempDarkerColor : currentColor;
         }
 
         for( var j = 0; j < amountOfEmptyViews; j++, key++){
@@ -53,7 +65,6 @@ export default class InfoChart extends Component {
 
     render () {
         this.getProps();
-
         return (
             <View style={{flex: 1}}>
                 { this.obtainChart(this.attack, 'sword-cross', 'ATTACK: ') }
