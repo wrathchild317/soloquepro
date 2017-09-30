@@ -22,7 +22,8 @@ export default class CarouselCard extends Component {
         buttonPressed: false,
         infoBtnPressed: false,
         heightAnim: new Animated.Value(slideHeight * 0.47),
-        opacityAnim: new Animated.Value(0.7), 
+        opacityAnim: new Animated.Value(0.7),
+        moreDescriptionPressed: false, 
       };
     }
 
@@ -48,6 +49,7 @@ export default class CarouselCard extends Component {
         /*set up button info*/
         this.buttonPressed = this.state.buttonPressed;
         this.infoBtnPressed = this.state.infoBtnPressed;
+        this.moreDescriptionPressed = this.state.moreDescriptionPressed;
         var lastChar = this.name[this.name.length-1];
         var possesion = (lastChar != 'S') ? `'S` : `'`;
         this.buttonText = this.name + possesion + ' INFO';
@@ -125,6 +127,17 @@ export default class CarouselCard extends Component {
                 duration: 300,
             }
         ).start();
+    }
+
+    viewMoreDescPressed = () => {
+        this.setState({moreDescriptionPressed: !this.moreDescriptionPressed});
+        // Animated.timing(
+        //     this.heightAnim, 
+        //     {
+        //         toValue: slideHeight * 0.47,
+        //         duration: 300,
+        //     }
+        // ).start();
     }
 
     get image() {
@@ -213,13 +226,24 @@ export default class CarouselCard extends Component {
     }
 
     get descriptionInfo(){
-       return( 
+        var downArrow = <EvilIcon name={'chevron-down'} size={55} color={'rgba(211,211,211,0.5)'} />
+        var upArrow = <EvilIcon name={'chevron-up'} size={55} color={'rgba(211,211,211,0.5)'} />
+        return( 
             <View>
                 <View style={{alignItems: 'center'}}>
                     <Text style={styles.descriptionTitle}>DESCRIPTION</Text>
                 </View>
                 <View style={{flexDirection: 'column', justifyContent: 'center'}}>
-                    <Text style={styles.descriptionText}>{this.blurb}</Text>
+                    <Text style={styles.descriptionText}>{this.moreDescriptionPressed ? this.lore : this.blurb}</Text>
+                    {
+                        !this.moreDescriptionPressed ? <View height={50} width={'100%'} style={{position: 'absolute', bottom: 0, backgroundColor: 'black', opacity: 0.5}}></View> : null
+
+                    }                                       
+                </View>
+                <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}> 
+                    {
+                        !this.moreDescriptionPressed ? this.createPressableIcon(downArrow, this.viewMoreDescPressed) : this.createPressableIcon(upArrow, this.viewMoreDescPressed)
+                    }
                 </View>
             </View>
         );
@@ -233,7 +257,6 @@ export default class CarouselCard extends Component {
                 { this.statisticsInfo }
                 { this.separationLine }
                 { this.descriptionInfo }
-                { this.separationLine }
             </View>
 
             )
