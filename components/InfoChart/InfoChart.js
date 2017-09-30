@@ -7,7 +7,6 @@ import { slideHeight, itemWidth } from '../CarouselCard/styles';
 import configs from './configs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-
 export default class InfoChart extends Component {
 
     propTypes: {
@@ -42,7 +41,7 @@ export default class InfoChart extends Component {
         return (
             <View style={{flexDirection:'row', marginBottom: 5}}>
                 <View style={{marginHorizontal: 10}}>
-                    <MaterialCommunityIcons name={iconName} size={38} color={'#9F8A46'} />
+                    <MaterialCommunityIcons name={iconName} size={38} color={'rgba(255,255,255,0.75)'} />
                 </View>
                 <View style={{flexDirection: 'column', justifyContent: 'center', marginBottom: 5}}>
                     <Text style={styles.ratesTitle}>{text}</Text>
