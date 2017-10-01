@@ -4,12 +4,14 @@ import { TabNavigator } from 'react-navigation';
 import SummonerSearch from '../../scenes/SummonerSearch';
 import News from '../../scenes/News';
 import  ChampionsNav from '../ChampionsNav';
+import Artifacts from '../Artifacts';
 
 
 const configs = {
 	routeConfigs: {
 		News: { screen: News, },
 		ChampionsNav: { screen: ChampionsNav },
+        Artifacts: { screen: Artifacts, },
 		Search: { screen: SummonerSearch, },
 	},
 	navigatorConfigs: {
