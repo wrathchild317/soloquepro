@@ -22,3 +22,14 @@ export const getFreeChampions = () => {
 		});
 	} 
 }
+
+export const getMaps = () => {
+	return (dispatch) => {
+		fetchData('https://soloqueprobackend.herokuapp.com/lol/static-data/maps?fields=MapName,MapId,img_url&sort=MapId').then((data) => {
+			dispatch({
+				type: 'SET_MAPS',
+				payload: data,
+			});
+		});
+	} 
+}

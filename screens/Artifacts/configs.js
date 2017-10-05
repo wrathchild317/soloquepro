@@ -24,6 +24,9 @@ const configs = {
     		style: {
 			    backgroundColor: 'black',
 			},
+			indicatorStyle: {
+				backgroundColor: 'white',
+			}
   		},
 	}
 }

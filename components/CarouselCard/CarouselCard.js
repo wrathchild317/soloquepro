@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import {View, Text, Image, TouchableHighlight, Button, ScrollView, Animated, TouchableOpacity } from 'react-native';
 /*--------------Styles & Configs--------*/
-import styles, { slideHeight, itemWidth } from './styles';
+import styles from './styles';
 import configs from './configs';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
 /*-------------import parallax---------*/
