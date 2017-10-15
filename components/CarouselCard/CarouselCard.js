@@ -9,6 +9,7 @@ import EvilIcon from 'react-native-vector-icons/EvilIcons';
 import { ParallaxImage } from 'react-native-snap-carousel';
 /*--------------Utilities-------------*/
 import Ripple from 'react-native-material-ripple';
+import { createPressableIcon } from '../../utils';
 import _ from 'lodash';
 /*--------------Components-------------*/
 import InfoChart from '../InfoChart/InfoChart'
@@ -98,19 +99,6 @@ export default class CarouselCard extends Component {
         this.setState({buttonPressed: false});
     }
 
-    createPressableIcon = (icon, onPressed) => {
-        return (
-            <TouchableOpacity 
-                activeOpacity={0.4}
-                onPress={onPressed}
-            >
-                <View style={styles.iconContainer}>
-                    {icon}
-                </View>
-            </TouchableOpacity>
-        );
-    }
-
     xIconPressed = () => {
         this.setState({infoBtnPressed: !this.infoBtnPressed});
         Animated.timing(
@@ -131,13 +119,6 @@ export default class CarouselCard extends Component {
 
     viewMoreDescPressed = () => {
         this.setState({moreDescriptionPressed: !this.moreDescriptionPressed});
-        // Animated.timing(
-        //     this.heightAnim, 
-        //     {
-        //         toValue: slideHeight * 0.47,
-        //         duration: 300,
-        //     }
-        // ).start();
     }
 
     get image() {
@@ -242,7 +223,7 @@ export default class CarouselCard extends Component {
                 </View>
                 <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}> 
                     {
-                        !this.moreDescriptionPressed ? this.createPressableIcon(downArrow, this.viewMoreDescPressed) : this.createPressableIcon(upArrow, this.viewMoreDescPressed)
+                        !this.moreDescriptionPressed ? createPressableIcon(downArrow, this.viewMoreDescPressed) : createPressableIcon(upArrow, this.viewMoreDescPressed)
                     }
                 </View>
             </View>
@@ -274,7 +255,7 @@ export default class CarouselCard extends Component {
                         { this.infoBtnPressed ? this.champDescription : null }
                     </Animated.ScrollView>
                     <View style={{position: 'absolute', top: 5, right: 5}}>
-                        { this.infoBtnPressed ? this.createPressableIcon(<EvilIcon name={'close'} size={34} color={'rgba(211,211,211,0.5)'} />,
+                        { this.infoBtnPressed ? createPressableIcon(<EvilIcon name={'close'} size={34} color={'rgba(211,211,211,0.5)'} />,
                         this.xIconPressed) : null }
                     </View>
                 </View>

@@ -1,3 +1,6 @@
+import React from 'React';
+import { View, TouchableOpacity } from 'react-native';
+
 export function fetchData(path) {
 	return fetch(path)
 		.then((res) => {
@@ -48,3 +51,16 @@ export function isColor(color){
     
     return regColorCode.test(color);
 }
+
+export function createPressableIcon(icon, onPressed){
+        return (
+            <TouchableOpacity 
+                activeOpacity={0.4}
+                onPress={onPressed}
+            >
+                <View style={{width: 45, height: 45, alignItems: 'center', justifyContent: 'center'}}>
+                    {icon}
+                </View>
+            </TouchableOpacity>
+        );
+    }

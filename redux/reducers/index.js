@@ -7,6 +7,7 @@ import ChampionsNavigationReducer from './ChampionsNavigation-reducer';
 import ChampionReducer from './Champion-reducer';
 import ArtifactsNavigation from './ArtifactsNavigation-reducer';
 import MapsReducer from './Maps-reducer';
+import ItemsReducer from './Items-reducer';
 
 const allReducers = combineReducers({
     appNavigation: AppNavigationReducer,
@@ -15,6 +16,7 @@ const allReducers = combineReducers({
     championData: ChampionReducer,
     artifactsNavigation: ArtifactsNavigation,
     mapsData: MapsReducer,
+    itemsData: ItemsReducer,
 });
 
 export default allReducers 

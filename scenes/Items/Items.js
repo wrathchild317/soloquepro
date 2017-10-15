@@ -1,28 +1,71 @@
 import React, { Component } from 'react';
-import { Image, Text, View, Button, Picker } from 'react-native';
+import { Image, Text, View, TouchableHighlight, FlatList } from 'react-native';
 import configs from './configs';
 import styles from './styles';
 //---------------redux----------------------
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 //---------------actions-------------------//
-import { getMaps } from '../../redux/actions';
+import { getMaps, getItems } from '../../redux/actions';
 /*------------------utils-----------------*/
 import _ from 'lodash';
+import { createPressableIcon } from '../../utils';
+/*---------------components--------------*/
+import { PacmanIndicator } from 'react-native-indicators';
+import MapCards from '../../components/MapCards'
 
 class Items extends Component {
+
+	constructor(props) {
+	    super(props);
+
+	    this.state = {
+		  	mapsData: null,
+		    mapSelected: '',
+	    };
+    }
 
 	static navigationOptions = configs.navigationOptions;
 
 	getProps = () => {
-		const { mapsData } = this.props.mapsData;
+		const { mapsData }  = this.props.mapsData;
 
-		this.maps = (mapsData) ? mapsData : null;
+		this.maps = (mapsData) ? mapsData : null
+
+		/* Button Pressed */
+		this.mapSelected = this.state.mapSelected;
+
+		/* Filter Maps */
+		this.maps = this.maps ? _.filter(this.maps, (map) => {
+			var mapId = map.MapId;
+			return (configs.homeMaps.indexOf(mapId) !== -1)
+		}) : null;
+
 	}
+
+	renderItem = ({item}) => {
+		return (
+			<MapCards 
+				map={item} 
+				onPress={this.onPress}	
+			/>
+        )
+	}
+
+	keyExtractor = (item) => item.MapId
 
 	componentDidMount(){
 		this.props.getMaps(); 
 	}
+
+    getCards = (mapSelected) => {
+    	this.props.getItems(mapSelected);
+    }
+
+    onPress = (mapId, mapName) => {
+   		const { navigate } = this.props.navigation;
+   		navigate('MapItems', { mapID: mapId, mapName: mapName });
+    }
 
   	render() {
   		this.getProps();
@@ -31,15 +74,13 @@ class Items extends Component {
 	     	<View style={styles.container}>
 	     		{	
 	     			this.maps ? (
-		     			_.map(this.maps, (map) => {
-							return (configs.homeMaps.indexOf(map.MapId) !== -1) ? 
-							<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginHorizontal: 15, marginVertical: 3}} key={map.MapId}>
-								<Image source={{uri: 'https://img10.deviantart.net/0440/i/2008/137/1/8/old_paper_by_struckdumb.jpg'}} style={{position: 'absolute', resizeMode: 'cover', width:'100%', height:'100%'}} />
-								<Image source={{uri: map.img_url}} style={{width: '98%', height: '98%'}} />
-								<Text style={{color: 'white', fontSize: 20, fontFamily: 'Nunito', position: 'absolute', bottom: 5, left: 10}}>{map.MapName}</Text>
-							</View> : null
-						})
-					) : null
+		     			<FlatList 	
+		     				data={this.maps}
+		     				renderItem={this.renderItem}
+		     				style={{flex:1}}
+		     				keyExtractor={this.keyExtractor}
+		     			/>
+					) : <PacmanIndicator color={'white'}/>
 	     		}
 	     	</View>
 	    );
@@ -49,11 +90,12 @@ class Items extends Component {
 const mapStateToProps = (state) => {
 	return {
 		mapsData: state.mapsData,
+		items: state.itemsData,
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
-	var props = bindActionCreators({getMaps: getMaps}, dispatch);
+	var props = bindActionCreators({getMaps: getMaps, getItems: getItems}, dispatch);
 	return {
 		...props,
 	}

@@ -2,10 +2,12 @@
 import { StackNavigator }from 'react-navigation';
 //--------------import screens ----------------
 import HomeNav from '../../screens/HomeNav';
+import MapItems from '../../scenes/MapItems';
 
 const configs = {
 	routeConfigs: {
-		Home: { screen: HomeNav},
+		Home: { screen: HomeNav },
+		MapItems: { screen: MapItems },
 	},
 	navigatorConfigs: {
 		headerMode: 'none',
