@@ -11,6 +11,6 @@ export default StyleSheet.create({
     backgroundColor: '#000',
     alignItems: 'stretch',
     justifyContent:'flex-start',
-    marginTop: 5
+    marginTop: 5,
   },
 })

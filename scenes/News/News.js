@@ -7,16 +7,16 @@ export default class News extends Component {
 
 	static navigationOptions = configs.navigationOptions;
 
+	onPress = () => {
+	}
+
   	render() {
+  		
+
 	    return (
 	     	<View style={styles.container}>
 	     		<Text style={{color: 'white'}}>News</Text>
-	     		<Picker
-	     			style={{color: 'white'}}
-	     		>
-	  				<Picker.Item label="Java" value="java" />
-	  				<Picker.Item label="JavaScript" value="js" />
-				</Picker>
+	     		<Button title="Items Page" onPress={this.onPress} />
 	     	</View>
 	    );
 	}
