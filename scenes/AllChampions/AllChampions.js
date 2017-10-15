@@ -50,7 +50,7 @@ class AllChampions extends Component {
 				NAVBAR_HEIGHT ,
       		),
       		searchInput: '',
-      		modalPickerVisible: true,
+      		modalPickerVisible: false,
 		};
 	}
 
