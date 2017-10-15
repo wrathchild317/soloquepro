@@ -15,6 +15,7 @@ import { sqaureMargin, imageWidth } from './configs';
 import CollapsableHeader from '../../components/CollapsableHeader';
 import ChampionSqaure from '../../components/ChampionSqaure';
 import ToolBar from '../../components/ToolBar';
+import ModalPicker from '../../components/ModalPicker';
 
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
@@ -49,6 +50,7 @@ class AllChampions extends Component {
 				NAVBAR_HEIGHT ,
       		),
       		searchInput: '',
+      		modalPickerVisible: true,
 		};
 	}
 
@@ -76,6 +78,8 @@ class AllChampions extends Component {
 
 		const { clampedScroll } = this.state;
 		this.clampedScroll = clampedScroll;
+
+		this.modalPickerVisible = this.state.modalPickerVisible;
 
 	}
 	
@@ -109,6 +113,14 @@ class AllChampions extends Component {
 
     onChangeText = (text) => {
     	this.setState({searchInput: text});
+    }
+
+    onIconOnePressed = () => {
+    	this.setState({modalPickerVisible: true});
+    }
+
+    onRequestClose = () => {
+    	this.setState({modalPickerVisible: false});
     }
 
     get sorryIcon() {
@@ -171,6 +183,10 @@ class AllChampions extends Component {
 			
 		return (
 			<View style={styles.container}>
+				<ModalPicker 
+					onRequestClose={this.onRequestClose}
+					visible={this.modalPickerVisible}
+				/>
 				<View>
 					{ this.innerComponent }
 				</View>
@@ -180,6 +196,7 @@ class AllChampions extends Component {
 				>
 					<ToolBar 
 						onChangeText={this.onChangeText}
+						onIconOnePressed={this.onIconOnePressed}
 						{...configs.toolBarConfigs}
 					/>
 				</CollapsableHeader>

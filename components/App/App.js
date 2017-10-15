@@ -38,14 +38,17 @@ class App extends Component {
 
 		return(
 			<View style={styles.container}>
-				<AppNavigator 
-					navigation={
-	        			addNavigationHelpers({
-	        				dispatch: dispatch,
-	        				state: navigationState,
-	        			})
-	        		}
-				/>
+				<View style={styles.statusBar}/>
+				<View style={styles.container}>
+					<AppNavigator 
+						navigation={
+		        			addNavigationHelpers({
+		        				dispatch: dispatch,
+		        				state: navigationState,
+		        			})
+		        		}
+					/>
+				</View>
 			</View>
 		);
 	}
