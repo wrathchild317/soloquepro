@@ -15,14 +15,22 @@ import { getChampionData, } from '../../redux/actions';
 class App extends Component {
 
 	onBackPress = () => {
-	   const { dispatch, navigationState } = this.props;
-	    
-	    if (navigationState.index === 0) {
-	      return false;
-	    }
+	   	const { dispatch, navigationState } = this.props;
 
-	    dispatch(NavigationActions.back());
-	    return true;
+	   	const { index, routes } = navigationState;
+
+	   	switch(routes[index].routeName) {
+	   		case 'Home': 
+	   			return false;
+	   		case 'MapItems': 
+	   			dispatch(NavigationActions.back({
+				  key: routes[index].key,
+				}));
+	   			return true;
+	   		default: 
+	   			dispatch(NavigationActions.back());
+	   			return true;
+	   	}
 	}
 
 	componentDidMount() {
