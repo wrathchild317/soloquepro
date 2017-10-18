@@ -10,8 +10,13 @@ const configs = {
 		MapItems: { screen: MapItems },
 	},
 	navigatorConfigs: {
-		headerMode: 'none',
+		headerMode: 'screen',
   		initialRouteName: 'Home',
+  		navigationOptions: {
+			headerStyle: {
+				backgroundColor: 'black',
+			},
+		}
 	}
 }
 

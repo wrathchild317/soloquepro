@@ -1,17 +1,37 @@
 import React, { Component } from 'react';
-import { Text, View, Button, Picker, BackHandler, FlatList, Animated } from 'react-native';
+import { Text, View, Button, Picker, BackHandler, FlatList, Animated, TouchableOpacity} from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import configs from './configs';
 import styles, { slideHeight, itemWidth } from './styles';
 //---------------redux----------------------
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {  NavigationActions } from 'react-navigation';
 //---------------actions-------------------//
 import { getItems } from '../../redux/actions';
 /*---------------components--------------*/
 import { PacmanIndicator } from 'react-native-indicators';
+import Icon from 'react-native-vector-icons/EvilIcons';
 
 class MapItems extends Component {
+
+	static navigationOptions = ({navigation}) => ({
+		headerTitle: <View style={{width: '80%', height: '100%', justifyContent: 'center', alignItems: 'center',}}>
+						<Text style={{color: 'white', fontFamily: 'Elianto', fontWeight: '200', fontSize: 18}}>
+							{navigation.state.params.mapName.toUpperCase()} 
+						</Text>
+					</View>,
+		headerLeft: <TouchableOpacity 
+				activeOpacity={0.4}
+          		onPress={() => {navigation.dispatch(NavigationActions.back({
+          			key: navigation.state.key,
+          		}))}}
+			>
+				<View style={styles.iconContainer}>
+					<Icon name={'chevron-left'} size={50} color={'gold'} />
+				</View>
+			</TouchableOpacity>
+    });
 
     constructor(props) {
       super(props);
@@ -95,10 +115,6 @@ class MapItems extends Component {
 
 	    return (
 	    	<View style={{flex:1, backgroundColor: 'black'}}>
-	    		<View style={[styles.headerStyle]}>
-	      			<Text style={[styles.headerText]}>{this.mapName}</Text>
-	      			<Text style={[styles.subHeaderText]}>ITEMS</Text>
-	      		</View>
 		    	{
 		    		this.items ? 
 			    		<FlatList 	
