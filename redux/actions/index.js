@@ -36,7 +36,7 @@ export const getMaps = () => {
 
 export const getItems = (mapId) => {
 	return (dispatch) => {
-		fetchData('https://soloqueprobackend.herokuapp.com/lol/static-data/items?fields=item_id,tags,maps,gold,name,item_square_url,sanitized_description&sort=popularity&map=' + mapId).then((data) => {
+		fetchData('https://soloqueprobackend.herokuapp.com/lol/static-data/items?fields=item_id,tags,maps,gold,name,item_square_url,sanitized_description&sort=name&map=' + mapId).then((data) => {
 			dispatch({
 				type: 'SET_ITEMS',
 				mapId: mapId,
