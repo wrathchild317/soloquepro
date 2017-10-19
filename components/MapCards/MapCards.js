@@ -16,12 +16,13 @@ const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window'
 export default class MapCards extends Component {
 
     getProps = () => { 
-        const { onPress, map } = this.props;
+        const { onPress, map, style} = this.props;
         const { MapId , MapName, img_url } = map;
         this.mapId  = MapId;
         this.mapName = MapName;
         this.mapImg = img_url;
         this.onPress = onPress;
+        this.style = style;
     }
 
     mapPressed = () => {
@@ -32,7 +33,7 @@ export default class MapCards extends Component {
         this.getProps();
 
         return (
-            <View style={{width: '100%', height: viewportHeight*0.24}}>
+            <View style={{width: '100%', height: viewportHeight*0.26}}>
                 <Ripple onPress={this.mapPressed} key={this.mapId} style={{flex: 1}}>
                     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginHorizontal: 15, marginVertical: 3}}>
                         <Image source={{uri: 'https://img10.deviantart.net/0440/i/2008/137/1/8/old_paper_by_struckdumb.jpg'}} style={{position: 'absolute', resizeMode: 'cover', width:'100%', height:'100%'}} />

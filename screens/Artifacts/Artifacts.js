@@ -17,9 +17,6 @@ class Artifacts extends Component {
 		const { dispatch, navigationState } = this.props;
 		return (
 	      	<View style={styles.container}>
-	      		<View style={{ height: 49, width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: 'black', borderStyle: 'solid', borderBottomColor: 'rgba(255,255,255,0.2)', borderBottomWidth: 1 }}>
-	      			<Text style={{ fontFamily: 'Elianto', fontSize: 20, color: 'white'}}>ARTIFACTS</Text>
-	      		</View>
 	        	<ArtifactsNavigation
 	        		navigation={
 	        			addNavigationHelpers({
