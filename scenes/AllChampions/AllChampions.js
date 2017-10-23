@@ -15,7 +15,7 @@ import { sqaureMargin, imageWidth } from './configs';
 import CollapsableHeader from '../../components/CollapsableHeader';
 import ChampionSqaure from '../../components/ChampionSqaure';
 import ToolBar from '../../components/ToolBar';
-import ModalPicker from '../../components/ModalPicker';
+import CustomModal from '../../components/CustomModal';
 
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
@@ -183,10 +183,16 @@ class AllChampions extends Component {
 			
 		return (
 			<View style={styles.container}>
-				<ModalPicker 
+				<CustomModal 
 					onRequestClose={this.onRequestClose}
 					visible={this.modalPickerVisible}
-				/>
+					backgroundColor={'rgba(123,56,83,0.4)'}
+					contentContainerStyle={{height: '50%', width: '50%', borderRadius: 5,}}
+				>
+					<View style={{flex:1}}>
+						<Text style={{color: 'white',}}>Modal</Text>
+					</View>
+				</CustomModal>
 				<View>
 					{ this.innerComponent }
 				</View>
