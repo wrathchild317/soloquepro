@@ -4,14 +4,20 @@ import {View, Text, TouchableWithoutFeedback, Modal , Button} from 'react-native
 /*--------------Styles & Configs--------*/
 import styles from './styles';
 
-export default class ModalPicker extends Component {
+export default class CustomModal extends Component {
+
+	propTypes: {
+        children: React.PropTypes.element.isRequired
+    }
 	
 	getProps = () => {
-		const { modalProps, onRequestClose, visible, options } = this.props;
+		const { modalProps, onRequestClose, visible, options, contentContainerStyle, backgroundColor } = this.props;
 		this.modalProps = modalProps;
 		this.visible = visible;
 		this.options = options;
 		this.onRequestClose = onRequestClose;
+		this.contentContainerStyle = contentContainerStyle;
+		this.backgroundColor = backgroundColor;
 	}
 
 	render() {
@@ -28,12 +34,11 @@ export default class ModalPicker extends Component {
 						<TouchableWithoutFeedback 
 							onPress={this.onRequestClose}
 						>
-							<View style={{flex: 1, backgroundColor: 'rgba(255,255,255,0.4)', }}/>
+							<View style={{flex: 1, backgroundColor: this.backgroundColor || 'rgba(255,255,255,0.4)', }}/>
 						</TouchableWithoutFeedback>
 					</View>
-					<View style={{zIndex: 2, height: '91%', width: '82%', backgroundColor: '#000', }}>
-						<Text style={{color: 'white'}}>Modal</Text>
-						<Button title={'click me'} onPress={() => {console.log('touched')}} />
+					<View style={[{zIndex: 2, height: '91%', width: '82%', backgroundColor: '#000', }, this.contentContainerStyle]}>
+						{this.props.children}
 					</View>
 				</View>
 			</Modal>
